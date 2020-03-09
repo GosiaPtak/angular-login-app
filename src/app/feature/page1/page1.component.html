@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <form [formGroup]="loginForm"
+    (ngSubmit)="login()">
+    <div class="row align-items-center">
+      <div class="col">
+        Name: </div>
+      <div class="col">
+        <p>
+          <input type="text"
+            placeholder="Name"
+            formControlName="name">
+        </p>
+      </div>
+      <div class="col">
+        <div *ngIf="isSubmitted && formControls.name.errors"
+          [ngClass]="{ 'alert alert-danger': isSubmitted && formControls.name.errors }">
+          <div *ngIf="formControls.name.errors.required">Name is required</div>
+          <div *ngIf="formControls.age.errors.pattern">Please enter only text</div>
+        </div>
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col">
+        Surname: </div>
+      <div class="col">
+        <p>
+          <input type="text"
+            placeholder="Surname"
+            formControlName="surname">
+        </p>
+      </div>
+      <div class="col">
+        <div *ngIf="isSubmitted && formControls.surname.errors"
+          [ngClass]="{ 'alert alert-danger': isSubmitted && formControls.surname.errors }">
+          <div *ngIf="formControls.surname.errors.required">Surname is required</div>
+          <div *ngIf="formControls.age.errors.pattern">Please enter only text</div>
+        </div>
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col">
+        Age: </div>
+      <div class="col">
+        <p>
+          <input type="text"
+            placeholder="Age"
+            formControlName="age">
+        </p>
+      </div>
+      <div class="col">
+        <div *ngIf="isSubmitted && formControls.age.errors"
+          [ngClass]="{ 'alert alert-danger': isSubmitted && formControls.age.errors }">
+          <div *ngIf="formControls.age.errors.required">Age is required</div>
+          <div *ngIf="formControls.age.errors.pattern">Please enter only numbers</div>
+        </div>
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col"></div>
+      <div class="col">
+        <input type="submit"
+          value="Log in">
+      </div>
+      <div class="col"></div>
+    </div>
+  </form>
+</div>
