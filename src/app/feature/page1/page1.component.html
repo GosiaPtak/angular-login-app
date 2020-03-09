@@ -1,67 +1,77 @@
-<div class="container-fluid">
+<div class="container">
   <form [formGroup]="loginForm"
     (ngSubmit)="login()">
     <div class="row align-items-center">
-      <div class="col">
-        Name: </div>
-      <div class="col">
+      <div class="col-sm-2">Name:</div>
+      <div class="col-sm-4">
         <p>
-          <input type="text"
+          <input class="form-control"
+            type="text"
             placeholder="Name"
             formControlName="name">
         </p>
       </div>
-      <div class="col">
-        <div *ngIf="isSubmitted && formControls.name.errors"
-          [ngClass]="{ 'alert alert-danger': isSubmitted && formControls.name.errors }">
-          <div *ngIf="formControls.name.errors.required">Name is required</div>
-          <div *ngIf="formControls.age.errors.pattern">Please enter only text</div>
+      <div class="col-sm-6">
+        <div class="alert alert-danger"
+          *ngIf="loginForm.controls.name.status === 'INVALID'">
+          <span *ngIf="loginForm.controls.name.errors.pattern">Please input only letters</span>
+          <span *ngIf="loginForm.controls.name.errors.required">Field cannot be empty</span>
         </div>
+
       </div>
     </div>
     <div class="row align-items-center">
-      <div class="col">
-        Surname: </div>
-      <div class="col">
+      <div class="col-sm-2">Surname:</div>
+      <div class="col-sm-4">
         <p>
-          <input type="text"
+          <input class="form-control"
+            type="text"
             placeholder="Surname"
             formControlName="surname">
         </p>
       </div>
-      <div class="col">
-        <div *ngIf="isSubmitted && formControls.surname.errors"
-          [ngClass]="{ 'alert alert-danger': isSubmitted && formControls.surname.errors }">
-          <div *ngIf="formControls.surname.errors.required">Surname is required</div>
-          <div *ngIf="formControls.age.errors.pattern">Please enter only text</div>
+      <div class="col-sm-6">
+        <div class="alert alert-danger"
+          *ngIf="loginForm.controls.surname.status === 'INVALID'">
+          <span *ngIf="loginForm.controls.surname.errors.pattern">Please input only letters</span>
+          <span *ngIf="loginForm.controls.surname.errors.required">Field cannot be empty</span>
         </div>
       </div>
     </div>
     <div class="row align-items-center">
-      <div class="col">
-        Age: </div>
-      <div class="col">
+      <div class="col-sm-2">Age:</div>
+      <div class="col-sm-4">
         <p>
-          <input type="text"
+          <input class="form-control"
+            type="text"
             placeholder="Age"
             formControlName="age">
         </p>
       </div>
-      <div class="col">
-        <div *ngIf="isSubmitted && formControls.age.errors"
-          [ngClass]="{ 'alert alert-danger': isSubmitted && formControls.age.errors }">
-          <div *ngIf="formControls.age.errors.required">Age is required</div>
-          <div *ngIf="formControls.age.errors.pattern">Please enter only numbers</div>
+      <div class="col-sm-6">
+        <div class="alert alert-danger"
+          *ngIf="loginForm.controls.age.status === 'INVALID'">
+          <span *ngIf="loginForm.controls.age.errors.pattern">Please input only number</span>
+          <span *ngIf="loginForm.controls.age.errors.required">Field cannot be empty</span>
         </div>
       </div>
     </div>
     <div class="row align-items-center">
-      <div class="col"></div>
-      <div class="col">
-        <input type="submit"
-          value="Log in">
+      <div class="col-sm-12">
+        <button class="btn btn-success btn-block"
+          type="submit"
+          [disabled]="!loginForm.valid || loginForm.untouched">
+          Log In
+        </button>
       </div>
-      <div class="col"></div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-sm-12"
+        *ngIf="loginForm.valid">
+        <h5>
+          {{loginForm.controls.name.value}} {{loginForm.controls.surname.value}}
+        </h5>
+      </div>
     </div>
   </form>
 </div>
