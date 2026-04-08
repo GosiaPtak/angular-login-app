@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="alert alert-danger"
+    role="alert"
+    *ngIf="isUnderageBlocked">
+    You are underage and cannot login.
+  </div>
+  <router-outlet name="status"></router-outlet>
+
+  <form (submit)="login(); $event.preventDefault()">
+    <div class="row align-items-center">
+      <div class="col-sm-2">Name:</div>
+      <div class="col-sm-4">
+        <p>
+          <input class="form-control"
+            type="text"
+            placeholder="Name"
+            [value]="formData().name"
+            (input)="updateField('name', $any($event.target).value)">
+        </p>
+      </div>
+      <div class="col-sm-6">
+        <div class="alert alert-danger"
+          *ngIf="errors().name.length > 0">
+          <span *ngIf="errors().name.includes('pattern')">Please input only letters</span>
+          <span *ngIf="errors().name.includes('required')">Field cannot be empty</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col-sm-2">Surname:</div>
+      <div class="col-sm-4">
+        <p>
+          <input class="form-control"
+            type="text"
+            placeholder="Surname"
+            [value]="formData().surname"
+            (input)="updateField('surname', $any($event.target).value)">
+        </p>
+      </div>
+      <div class="col-sm-6">
+        <div class="alert alert-danger"
+          *ngIf="errors().surname.length > 0">
+          <span *ngIf="errors().surname.includes('pattern')">Please input only letters</span>
+          <span *ngIf="errors().surname.includes('required')">Field cannot be empty</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col-sm-2">Age:</div>
+      <div class="col-sm-4">
+        <p>
+          <input class="form-control"
+            type="text"
+            placeholder="Age"
+            [value]="formData().age"
+            (input)="updateField('age', $any($event.target).value)">
+        </p>
+      </div>
+      <div class="col-sm-6">
+        <div class="alert alert-danger"
+          *ngIf="errors().age.length > 0">
+          <span *ngIf="errors().age.includes('pattern')">Please input only number</span>
+          <span *ngIf="errors().age.includes('required')">Field cannot be empty</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col-sm-6">
+        <button class="btn btn-success btn-block"
+          type="submit"
+          [disabled]="!isValid() || !touched()">
+          Log In
+        </button>
+      </div>
+      <div class="col-sm-6">
+        <button class="btn btn-outline-secondary btn-block"
+          type="button"
+          [disabled]="!isLoggedIn()"
+          (click)="logout()">
+          Log Out
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -13,4 +13,12 @@ describe('LoginService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should clear user and underage flag on logout', () => {
+    service.setSubmittedData({ name: 'Jan', surname: 'Kowalski', age: 22 });
+    service.setUnderageBlocked(true);
+
+    expect(service.getCurrentUser()).toBeNull();
+    expect(service.consumeUnderageBlocked()).toBe(false);
+  });
 });
