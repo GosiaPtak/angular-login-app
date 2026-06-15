@@ -1,23 +1,26 @@
 import { Routes } from '@angular/router';
-import { ageGuard } from './shared/guards/age.guard';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home' },
-  { path: 'home',
-    loadComponent: () => import('./core/home/home.component').then(m => m.HomeComponent)
-  },
+  { path: '', pathMatch: 'full', redirectTo: 'register' },
   {
     path: 'login',
-    loadComponent: () => import('./feature/login-page/login-page.component').then(m => m.LoginPageComponent),
-    children: [
-      {
-        path: 'auth-state',
-        outlet: 'status',
-        loadComponent: () => import('./shared/status/auth-status.component').then(m => m.AuthStatusComponent)
-      }
-    ]
+    loadComponent: () => import('./feature/login-page/login-page.component').then(m => m.LoginPageComponent)
   },
-  { path: 'auth-check', canActivate: [ageGuard], loadComponent: () => import('./core/home/home.component').then(m => m.HomeComponent) },
+  {
+    path: 'login-success',
+    loadComponent: () => import('./feature/login-page/login-success.component').then(m => m.LoginSuccessComponent)
+  },
+  {
+    path: 'register',
+    loadComponent: () => import('./feature/register-page/register-page.component').then(m => m.RegisterPageComponent)
+  },
+  {
+    path: 'register-success',
+    loadComponent: () => import('./feature/register-page/register-success.component').then(m => m.RegisterSuccessComponent)
+  },
+  {
+    path: 'underage',
+    loadComponent: () => import('./shared/page-underage/underage.component').then(m => m.UndereageComponent)
+  },
   { path: '**', loadComponent: () => import('./shared/page-not-found/page-not-found.component').then(m => m.PageNotFoundComponent) }
 ];
-

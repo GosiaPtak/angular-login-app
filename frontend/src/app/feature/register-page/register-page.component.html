@@ -1,0 +1,138 @@
+<div class="container">
+  @if (service.registerError()) {
+    <div class="alert alert-danger" role="alert">
+      {{ service.registerError() }}
+    </div>
+  }
+
+  <form (submit)="service.register(); $event.preventDefault()">
+    <div class="row align-items-center">
+      <div class="col-sm-2">Username:</div>
+      <div class="col-sm-4">
+        <p>
+          <input class="form-control"
+            type="text"
+            placeholder="Username"
+            [value]="service.formData().username"
+            (input)="service.updateField('username', $any($event.target).value)">
+        </p>
+      </div>
+      <div class="col-sm-6">
+        @if ((service.usernameDirty() || service.submitted()) && service.errors().username.length > 0) {
+          <div class="alert alert-danger">
+            <span>Username is required</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col-sm-2">Password:</div>
+      <div class="col-sm-4">
+        <p>
+          <input class="form-control"
+            type="password"
+            placeholder="Password"
+            [value]="service.formData().password"
+            (input)="service.updateField('password', $any($event.target).value)">
+        </p>
+      </div>
+      <div class="col-sm-6">
+        @if ((service.passwordDirty() || service.submitted()) && service.errors().password.length > 0) {
+          <div class="alert alert-danger">
+            <span>Password is required</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col-sm-2">Name:</div>
+      <div class="col-sm-4">
+        <p>
+          <input class="form-control"
+            type="text"
+            placeholder="Name"
+            [value]="service.formData().name"
+            (input)="service.updateField('name', $any($event.target).value)">
+        </p>
+      </div>
+      <div class="col-sm-6">
+        @if (service.errors().name.length > 0) {
+          <div class="alert alert-danger">
+            @if (service.errors().name.includes('pattern')) {
+              <span>Please input only letters</span>
+            }
+            @if (service.errors().name.includes('required')) {
+              <span>Field cannot be empty</span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col-sm-2">Surname:</div>
+      <div class="col-sm-4">
+        <p>
+          <input class="form-control"
+            type="text"
+            placeholder="Surname"
+            [value]="service.formData().surname"
+            (input)="service.updateField('surname', $any($event.target).value)">
+        </p>
+      </div>
+      <div class="col-sm-6">
+        @if (service.errors().surname.length > 0) {
+          <div class="alert alert-danger">
+            @if (service.errors().surname.includes('pattern')) {
+              <span>Please input only letters</span>
+            }
+            @if (service.errors().surname.includes('required')) {
+              <span>Field cannot be empty</span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col-sm-2">Age:</div>
+      <div class="col-sm-4">
+        <p>
+          <input class="form-control"
+            type="text"
+            placeholder="Age"
+            [value]="service.formData().age"
+            (input)="service.updateField('age', $any($event.target).value)">
+        </p>
+      </div>
+      <div class="col-sm-6">
+        @if (service.errors().age.length > 0) {
+          <div class="alert alert-danger">
+            @if (service.errors().age.includes('pattern')) {
+              <span>Please input only numbers</span>
+            }
+            @if (service.errors().age.includes('required')) {
+              <span>Field cannot be empty</span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col-sm-6">
+        <button class="btn btn-primary btn-block"
+          type="submit"
+          [disabled]="!service.isValid() || !service.touched() || service.isLoading()">
+          @if (service.isLoading()) {
+            Registering...
+          } @else {
+            Register
+          }
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
