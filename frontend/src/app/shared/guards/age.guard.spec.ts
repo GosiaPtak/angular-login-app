@@ -25,11 +25,11 @@ describe('ageGuard', () => {
     router = TestBed.inject(Router);
   });
 
-  it('should redirect to /loginPage when no user is set', () => {
+  it('should redirect to /login when no user is set', () => {
     const result = executeGuard();
     expect(result).toEqual(
       router.createUrlTree(
-        ['/loginPage', { outlets: { status: ['auth-state'] } }],
+        ['/login', { outlets: { status: ['auth-state'] } }],
         {
           fragment: 'auth-status',
           queryParams: { status: 'logged-out' }
@@ -39,12 +39,12 @@ describe('ageGuard', () => {
     expect(loginService.consumeUnderageBlocked()).toBe(false);
   });
 
-  it('should redirect to /loginPage when user is 18 or younger', () => {
+  it('should redirect to /login when user is 18 or younger', () => {
     loginService.setSubmittedData({ name: 'Jan', surname: 'Kowalski', age: 18 });
     const result = executeGuard();
     expect(result).toEqual(
       router.createUrlTree(
-        ['/loginPage', { outlets: { status: ['auth-state'] } }],
+        ['/login', { outlets: { status: ['auth-state'] } }],
         {
           fragment: 'auth-status',
           queryParams: { status: 'underage' }
@@ -54,12 +54,12 @@ describe('ageGuard', () => {
     expect(loginService.consumeUnderageBlocked()).toBe(true);
   });
 
-  it('should redirect to /loginPage with logged-in status when user is older than 18', () => {
+  it('should redirect to /login with logged-in status when user is older than 18', () => {
     loginService.setSubmittedData({ name: 'Jan', surname: 'Kowalski', age: 19 });
     const result = executeGuard();
     expect(result).toEqual(
       router.createUrlTree(
-        ['/loginPage', { outlets: { status: ['auth-state'] } }],
+        ['/login', { outlets: { status: ['auth-state'] } }],
         {
           fragment: 'auth-status',
           queryParams: { status: 'logged-in' }

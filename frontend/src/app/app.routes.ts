@@ -7,7 +7,7 @@ export const routes: Routes = [
     loadComponent: () => import('./core/home/home.component').then(m => m.HomeComponent)
   },
   {
-    path: 'loginPage',
+    path: 'login',
     loadComponent: () => import('./feature/login-page/login-page.component').then(m => m.LoginPageComponent),
     children: [
       {

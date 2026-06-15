@@ -7,25 +7,22 @@ export const ageGuard: CanActivateFn = () => {
   const router = inject(Router);
 
   const user = loginService.getCurrentUser();
+  const hasUser = !!user;
+  const isAdult = hasUser && Number(user.age) > 18;
+  const isUnderage = hasUser && Number(user.age) <= 18;
 
   let status: 'logged-in' | 'logged-out' | 'underage' = 'logged-out';
 
-  if (user && Number(user.age) > 18) {
-    loginService.setUnderageBlocked(false);
-    status = 'logged-in';
-  }
+  isAdult && loginService.setUnderageBlocked(false);
+  isAdult && (status = 'logged-in');
 
-  if (user) {
-    if (Number(user.age) <= 18) {
-      loginService.setUnderageBlocked(true);
-      status = 'underage';
-    }
-  } else {
-    loginService.setUnderageBlocked(false);
-  }
+  isUnderage && loginService.setUnderageBlocked(true);
+  isUnderage && (status = 'underage');
+
+  !hasUser && loginService.setUnderageBlocked(false);
 
   return router.createUrlTree(
-    ['/loginPage', { outlets: { status: ['auth-state'] } }],
+    ['/login', { outlets: { status: ['auth-state'] } }],
     {
       fragment: 'auth-status',
       queryParams: { status }
